@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfólio — Jeferson Brandão</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Reset & Variáveis ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #161616;
+      --accent:    #1900ff;
+      --text:      #f0ede8;
+      --muted:     #6b6b6b;
+      --border:    #222;
+      --radius:    10px;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grade decorativa de fundo */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Brilho central */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 30%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,240,77,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      text-align: center;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero-title .highlight {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 400;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+      font-weight: 700;
+      box-shadow: 0 0 24px rgba(200,240,77,0.25);
+    }
+
+    .btn-primary:hover { box-shadow: 0 0 36px rgba(200,240,77,0.4); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover { border-color: var(--muted); }
+
+    /* ── Sobre ── */
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .skill-tag {
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.82rem;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Card avatar placeholder */
+    .about-visual {
+      aspect-ratio: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: grid;
+      place-items: center;
+      font-size: 5rem;
+      color: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(200,240,77,0.07), transparent 60%);
+    }
+
+    /* ── Projetos ── */
+    .projects-section { border-top: 1px solid var(--border); }
+
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: #333;
+    }
+
+    .card-thumb {
+      height: 180px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      display: grid;
+      place-items: center;
+      font-size: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-body { padding: 1.5rem; }
+
+    .card-category {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── Contato ── */
+    .contact-section {
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) * 2);
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,240,77,0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── Animações ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsivo ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+      .projects-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav>
+    <a href="#" class="nav-logo">seu<span>.</span>nome</a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">Disponível para projetos ✦</span>
+      <h1 class="hero-title">
+        Olá, eu sou<br>
+        <span class="highlight">Victor Carlos</span>
+      </h1>
+      <p class="hero-desc">
+        Desenvolvedor front-end apaixonado por criar interfaces bonitas,
+        rápidas e acessíveis que fazem diferença na vida das pessoas.
+      </p>
+      <div class="hero-actions">
+        <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+        <a href="#contato" class="btn btn-outline">Entrar em contato</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Sobre ── -->
+  <section id="sobre">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">Sobre mim</p>
+        <h2 class="section-title">Código com propósito e cuidado</h2>
+        <p>
+          Sou desenvolvedor com foco em experiências web modernas. Gosto de
+          transformar ideias em produtos digitais que combinam estética e
+          funcionalidade.
+        </p>
+        <p>
+          Quando não estou codando, estou aprendendo algo novo, contribuindo
+          para projetos open source ou tomando muito café. ☕
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Node.js</span>
+        </div>
+      </div>
+      <div class="about-visual">👤</div>
+    </div>
+  </section>
+
+  <!-- ── Projetos ── -->
+  <section id="projetos" class="projects-section">
+    <div class="projects-header">
+      <div>
+        <p class="section-label">Trabalhos</p>
+        <h2 class="section-title">Projetos em destaque</h2>
+      </div>
+      <a href="#" class="btn btn-outline">Ver todos →</a>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="project-card">
+        <div class="card-thumb">🛒</div>
+        <div class="card-body">
+          <p class="card-category">E-commerce</p>
+          <h3 class="card-title">Loja Virtual</h3>
+          <p class="card-desc">
+            Plataforma de compras com carrinho dinâmico, filtros e
+            integração com pagamento.
+          </p>
+          <a href="#" class="card-link">Ver projeto →</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-thumb">📊</div>
+        <div class="card-body">
+          <p class="card-category">Dashboard</p>
+          <h3 class="card-title">Painel Analytics</h3>
+          <p class="card-desc">
+            Dashboard interativo com gráficos em tempo real e relatórios
+            exportáveis em PDF.
+          </p>
+          <a href="#" class="card-link">Ver projeto →</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-thumb">🌐</div>
+        <div class="card-body">
+          <p class="card-category">Landing Page</p>
+          <h3 class="card-title">Site Institucional</h3>
+          <p class="card-desc">
+            Site responsivo com animações CSS, formulário de contato e
+            SEO otimizado.
+          </p>
+          <a href="#" class="card-link">Ver projeto →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── Contato ── -->
+  <section id="contato" class="contact-section">
+    <div class="contact-box">
+      <p class="section-label">Contato</p>
+      <h2 class="section-title">Vamos trabalhar juntos?</h2>
+      <p>
+        Estou aberto a oportunidades freelance, projetos colaborativos ou
+        simplesmente uma boa conversa sobre tecnologia.
+      </p>
+      <a href="mailto:seuemail@email.com" class="btn btn-primary">
+        seuemail@email.com
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <span>© 2026 Seu Nome</span>
+    <span>Feito com HTML & CSS ✦</span>
+  </footer>
+
+</body>
+</html>
